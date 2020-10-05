@@ -36,6 +36,17 @@ class RedisTests: XCTestCase {
             XCTAssertContains(res.body.string, "redis_version")
         }
     }
+    
+    func testRetryFailsImmediatelyIfUnresolvableHost() throws {
+        let app = Application()
+        defer { app.shutdown() }
+        
+        app.redis.configuration = try .init(hostname: env("REDIS_HOSTNAME") ?? "localhost", port: RedisConnection.defaultPort)
+        app.redis.configuration?.pool.maxRetryWait = .nanoseconds(1)
+        
+        let result = try app.redis.get(#function).wait()
+        XCTAssertTrue(result.isNull)
+    }
 
     override class func setUp() {
         XCTAssert(isLoggingConfigured)

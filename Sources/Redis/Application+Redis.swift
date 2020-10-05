@@ -56,7 +56,8 @@ extension Application {
                         connectionTCPClient: nil,
                         poolLogger: self.application.logger,
                         connectionBackoffFactor: configuration.pool.connectionBackoffFactor,
-                        initialConnectionBackoffDelay: configuration.pool.initialConnectionBackoffDelay
+                        initialConnectionBackoffDelay: configuration.pool.initialConnectionBackoffDelay,
+                        maxRetryWait: configuration.pool.maxRetryWait
                     )
                 }
                 self.application.storage.set(PoolKey.self, to: pools) { pools in

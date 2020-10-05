@@ -14,17 +14,20 @@ public struct RedisConfiguration {
         public var minimumConnectionCount: Int
         public var connectionBackoffFactor: Float32
         public var initialConnectionBackoffDelay: TimeAmount
+        public var maxRetryWait: TimeAmount
 
         public init(
             maximumConnectionCount: RedisConnectionPoolSize = .maximumActiveConnections(2),
             minimumConnectionCount: Int = 0,
             connectionBackoffFactor: Float32 = 2,
-            initialConnectionBackoffDelay: TimeAmount = .milliseconds(100)
+            initialConnectionBackoffDelay: TimeAmount = .milliseconds(100),
+            maxRetryWait: TimeAmount = .seconds(60)
         ) {
             self.maximumConnectionCount = maximumConnectionCount
             self.minimumConnectionCount = minimumConnectionCount
             self.connectionBackoffFactor = connectionBackoffFactor
             self.initialConnectionBackoffDelay = initialConnectionBackoffDelay
+            self.maxRetryWait = maxRetryWait
         }
     }
 
