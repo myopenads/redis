@@ -27,7 +27,7 @@ extension Application {
         }
 
         // must be event loop from this app's elg
-        internal func pool(for eventLoop: EventLoop) -> RedisConnectionPool {
+        public func pool(for eventLoop: EventLoop) -> RedisConnectionPool {
             guard let pool = self.pools[eventLoop.key] else {
                 fatalError("EventLoop must be from Application's EventLoopGroup.")
             }
@@ -73,7 +73,7 @@ extension Application {
             typealias Value = RedisClient
         }
         
-        var pubsubClient: RedisClient {
+        public var pubsubClient: RedisClient {
             if let existing = self.application.storage[PubSubKey.self] {
                 return existing
             } else {
